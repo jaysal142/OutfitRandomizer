@@ -14,6 +14,7 @@
     android:layout_height="400dp"
     android:layout_marginBottom="100dp"
     android:src="@drawable/logo"
+    android:transitionName="logo_image"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintHorizontal_bias="1.0"
@@ -24,11 +25,12 @@
         android:id="@+id/sampleBrandText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins"
-        android:text="Personal Stylist"
+        android:fontFamily="@font/poppins_black_italic"
+        android:text="PERSONAL\nSTYLIST"
         android:textAlignment="center"
         android:textSize="35sp"
-        android:textColor="@color/secondary_on_color"
+        android:textColor="@color/primary_color_variant"
+        android:transitionName="logo_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sampleBrandLogo"
@@ -41,10 +43,11 @@
         android:fontFamily="@font/poppins"
         android:text="&amp; Wardrobe"
         android:textAlignment="center"
-        android:textSize="30sp"
-        android:textColor="@color/secondary_on_color"
+        android:textSize="20sp"
+        android:textColor="@color/primary_color_variant"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sampleBrandText" />
+        app:layout_constraintTop_toBottomOf="@+id/sampleBrandText"
+        android:layout_marginTop="-10dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

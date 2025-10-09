@@ -11,9 +11,9 @@
 
     <color name="primary_color">@color/burgundy</color>
     <color name="primary_color_variant">@color/cream</color>
-    <color name="primary_on_color">@color/black</color>
+    <color name="primary_on_color">@color/coal</color>
 
-    <color name="secondary_color">@color/black</color>
+    <color name="secondary_color">@color/coal</color>
     <color name="secondary_color_variant">@color/dark_blue</color>
     <color name="secondary_on_color">@color/white</color>
 </resources>

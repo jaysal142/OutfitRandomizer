@@ -3,8 +3,8 @@
     <style name="Base.Theme.OutfitRandomizer" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
-        <item name="colorPrimary">@color/dark_blue</item>
-        <item name="colorPrimaryVariant">@color/blue</item>
+        <item name="colorPrimary">@color/blue</item>
+        <item name="colorPrimaryVariant">@color/dark_blue</item>
         <item name="colorOnPrimary">@color/black</item>
 
         <item name="colorSecondary">@color/cream</item>
@@ -12,7 +12,8 @@
         <item name="colorOnSecondary">@color/black</item>
 
         <item name="android:statusBarColor">?attr/colorPrimary</item>
-
         <item name="android:textColorPrimary">@color/white</item>
+
+        <item name="android:windowContentTransitions">true</item>
     </style>
 </resources>
