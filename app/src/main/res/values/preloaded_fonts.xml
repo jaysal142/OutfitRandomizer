@@ -5,5 +5,9 @@
         <item>@font/anton</item>
         <item>@font/bangers</item>
         <item>@font/bungee</item>
+        <item>@font/poppins</item>
+        <item>@font/poppins_black_italic</item>
+        <item>@font/poppins_extrabold</item>
+        <item>@font/poppins_extralight</item>
     </array>
 </resources>

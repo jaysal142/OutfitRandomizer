@@ -6,14 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@color/beige">
+    android:background="@color/secondary_color_variant">
 
     <ImageView
     android:id="@+id/sampleBrandLogo"
     android:layout_width="0dp"
     android:layout_height="400dp"
     android:layout_marginBottom="100dp"
-    android:src="@drawable/temp_logo_blank"
+    android:src="@drawable/logo"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintHorizontal_bias="1.0"
@@ -24,25 +24,25 @@
         android:id="@+id/sampleBrandText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/antic"
+        android:fontFamily="@font/poppins"
         android:text="Personal Stylist"
-        android:textColor="@color/black"
         android:textAlignment="center"
         android:textSize="35sp"
+        android:textColor="@color/secondary_on_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sampleBrandLogo"
-        android:layout_marginTop="-90dp"/>
+        android:layout_marginTop="-50dp"/>
 
     <TextView
         android:id="@+id/sampleTaglineText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/antic"
+        android:fontFamily="@font/poppins"
         android:text="&amp; Wardrobe"
-        android:textColor="@color/black"
         android:textAlignment="center"
         android:textSize="30sp"
+        android:textColor="@color/secondary_on_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sampleBrandText" />
