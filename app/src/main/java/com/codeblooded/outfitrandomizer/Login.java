@@ -20,7 +20,7 @@ public class Login extends AppCompatActivity {
 
     Button callSignUp, login_btn;
     ImageView image;
-    TextView titleText;
+    TextView header;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +34,9 @@ public class Login extends AppCompatActivity {
             return insets;
         });
 
-        callSignUp = findViewById(R.id.button_signup);
-        image = findViewById(R.id.logo_image);
-        titleText = findViewById(R.id.text_title);
+        callSignUp = findViewById(R.id.btn_signup_login);
+        image = findViewById(R.id.brand_logo_login);
+        header = findViewById(R.id.header_login);
 
         callSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,8 +44,8 @@ public class Login extends AppCompatActivity {
                 Intent intent = new Intent(Login.this, SignUp.class);
 
                 Pair[] pairs = new Pair[2];
-                pairs[0] = new Pair<View,String>(image, "logo_image");
-                pairs[1] = new Pair<View,String>(titleText, "logo_text");
+                pairs[0] = new Pair<View,String>(image, "logo_transition");
+                pairs[1] = new Pair<View,String>(header, "header_transition");
 
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Login.this,pairs);
                 startActivity(intent, options.toBundle());

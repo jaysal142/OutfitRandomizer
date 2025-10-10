@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     //Variables
     Animation topAnim, bottomAnim;
     ImageView image;
-    TextView brand, tagline;
+    TextView tagline1, tagline2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,22 +44,22 @@ public class MainActivity extends AppCompatActivity {
         bottomAnim = AnimationUtils.loadAnimation(this,R.anim.bottom_animation);
 
         //Hooks
-        image = findViewById(R.id.sampleBrandLogo);
-        brand = findViewById(R.id.sampleBrandText);
-        tagline = findViewById(R.id.sampleTaglineText);
+        image = findViewById(R.id.brand_logo_main);
+        tagline1 = findViewById(R.id.tagline_main_1);
+        tagline2 = findViewById(R.id.tagline_main_2);
 
 
         image.setAnimation(topAnim);
-        brand.setAnimation(bottomAnim);
-        tagline.setAnimation(bottomAnim);
+        tagline1.setAnimation(bottomAnim);
+        tagline2.setAnimation(bottomAnim);
 
 
         new Handler().postDelayed(() -> {
             Intent intent = new Intent(MainActivity.this,Login.class);
 
             Pair[] pairs = new Pair[2];
-            pairs[0] = new Pair<View,String>(image, "logo_image");
-            pairs[1] = new Pair<View,String>(brand, "logo_text");
+            pairs[0] = new Pair<View,String>(image, "logo_transition");
+            pairs[1] = new Pair<View,String>(tagline1, "header_transition");
 
             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this,pairs);
             startActivity(intent, options.toBundle());

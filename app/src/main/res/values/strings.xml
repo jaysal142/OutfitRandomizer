@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">OutfitRandomizer</string>
+    <string name="brand_logo_main_desc">Large Closet Genie Logo</string>
+    <string name="tagline_main_1_text">PERSONAL\nSTYLIST</string>
+    <string name="tagline_main_2_text"><![CDATA[& Wardrobe]]></string>
+    <string name="brand_logo_small_desc">Small Closet Genie Logo</string>
+    <string name="header_login_text">Hello,\nWelcome Back!</string>
+    <string name="subhead_login_text">Sign in to continue</string>
+    <string name="username_login_hint">Username</string>
+    <string name="password_login_hint">Password</string>
+    <string name="btn_forgot_pass_login_text">Forgot Password?</string>
+    <string name="btn_signin_login_text">SIGN IN</string>
+    <string name="btn_signup_login_text">New User Sign Up</string>
+    <string name="header_signup_text">Create Account</string>
+    <string name="subhead_signup_text">to start generating Outfits!</string>
+    <string name="username_signup_hint">Username</string>
+    <string name="phone_num_signup_hint">Phone Number</string>
+    <string name="email_signup_hint">Email</string>
+    <string name="password_signup_hint">Password</string>
+    <string name="password_conf_signup_hint">Confirm Password</string>
+    <string name="btn_create_acc_signup_text">Create Account</string>
+    <string name="btn_login_signup_text">Existing User Login</string>
 </resources>
