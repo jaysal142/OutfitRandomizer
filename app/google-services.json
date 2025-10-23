@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "670467845291",
+    "project_id": "closetgenie-a1f62",
+    "storage_bucket": "closetgenie-a1f62.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:670467845291:android:8b62c624f44cc8836b5bee",
+        "android_client_info": {
+          "package_name": "com.codeblooded.outfitrandomizer"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDw4cL1zV0mulOXdoo3O5i5PpkNOJAEK8c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
