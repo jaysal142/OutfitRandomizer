@@ -8,6 +8,11 @@ material = "1.13.0"
 activity = "1.10.1"
 constraintlayout = "2.2.1"
 firebaseDatabase = "22.0.1"
+navigationFragment = "2.9.5"
+navigationUi = "2.9.5"
+roomRuntime = "2.6.1"
+roomGuava = "2.6.1"
+roomCompiler = "2.6.1"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -20,6 +25,11 @@ constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayo
 lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version = "2.8.6" }
 lifecycle-livedata-ktx  = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version = "2.8.6" }
 firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
+navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }
+navigation-ui = { group = "androidx.navigation", name = "navigation-ui", version.ref = "navigationUi" }
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "roomRuntime" }
+room-guava = { group = "androidx.room", name = "room-guava", version.ref = "roomGuava" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomCompiler" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

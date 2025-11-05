@@ -15,7 +15,22 @@
         <item name="android:textColorPrimary">@color/black</item>
 
         <item name="android:windowContentTransitions">true</item>
+
+        <item name="bottomNavigationStyle">@style/Widget.My.BottomNavigationView</item>
     </style>
 
     <style name="Theme.OutfitRandomizer" parent="Base.Theme.OutfitRandomizer" />
+
+    <style name="Theme.OutfitRandomizer.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.OutfitRandomizer.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.OutfitRandomizer.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="Widget.My.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
+        <item name="itemActiveIndicatorStyle">@style/BottomNav_ActiveIndicator_Circle</item>
+    </style>
 </resources>

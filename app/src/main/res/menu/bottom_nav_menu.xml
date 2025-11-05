@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/home_24dp"
+        android:title="Home" />
+    <item
+        android:id="@+id/nav_wardrobe"
+        android:icon="@drawable/hanger_24dp"
+        android:title="Wardrobe"/>
+    <item
+        android:id="@+id/nav_generator"
+        android:icon="@drawable/generate_24dp"
+        android:title="Generate"/>
+    <item
+        android:id="@+id/nav_favorites"
+        android:icon="@drawable/favorite_24dp"
+        android:title="Favorites"/>
+    <item
+        android:id="@+id/nav_user"
+        android:icon="@drawable/person_24dp"
+        android:title="Account"/>
+
+</menu>

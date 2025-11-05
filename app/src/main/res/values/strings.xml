@@ -20,4 +20,16 @@
     <string name="password_conf_signup_hint">Confirm Password</string>
     <string name="btn_create_acc_signup_text">Create Account</string>
     <string name="btn_login_signup_text">Existing User Login</string>
+    <string name="profile_image_userProfile_desc">User Profile Image</string>
+    <string name="title_activity_home_page">HomePage</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
 </resources>

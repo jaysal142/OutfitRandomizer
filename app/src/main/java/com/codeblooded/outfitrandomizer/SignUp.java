@@ -1,5 +1,6 @@
 package com.codeblooded.outfitrandomizer;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -43,40 +44,103 @@ public class SignUp extends AppCompatActivity {
         regToLoginBtn = findViewById(R.id.btn_login_signup);
 
         //Save data to Firebase on button click
-        regBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                rootNode = FirebaseDatabase.getInstance();
-                reference = rootNode.getReference("users");
+        rootNode = FirebaseDatabase.getInstance();
+        reference = rootNode.getReference("users");
+    }
 
-                if (regUsername.getEditText().getText().toString().isEmpty()) {
-                    Toast.makeText(SignUp.this, "Please Enter A Valid Username", Toast.LENGTH_SHORT).show();
-                    return;
-                } else if (regPhoneNo.getEditText().getText().toString().isEmpty()) {
-                    Toast.makeText(SignUp.this, "Please Enter A Valid Phone Number", Toast.LENGTH_SHORT).show();
-                    return;
-                } else if (regEmail.getEditText().getText().toString().isEmpty()) {
-                    Toast.makeText(SignUp.this, "Please Enter A Valid Email", Toast.LENGTH_SHORT).show();
-                    return;
-                } else if (regPassword.getEditText().getText().toString().isEmpty()) {
-                    Toast.makeText(SignUp.this, "Please Enter A Valid Password", Toast.LENGTH_SHORT).show();
-                    return;
-                } else if (regPasswordConf.getEditText().getText().toString().isEmpty() || !regPasswordConf.getEditText().getText().toString().equals(regPassword.getEditText().getText().toString())) {
-                    Toast.makeText(SignUp.this, "Passwords Do Not Match", Toast.LENGTH_LONG).show();
-                    return;
-                }
+    public void backToLogin(View view) {
+        Intent intent = new Intent(SignUp.this, Login.class);
+        startActivity(intent);
+    }
 
-                //Get text field values
-                String username = regUsername.getEditText().getText().toString();
-                String phoneNo = regPhoneNo.getEditText().getText().toString();
-                String email = regEmail.getEditText().getText().toString();
-                String password = regPassword.getEditText().getText().toString();
+    private Boolean validateUsername() {
+        //Username Checks
+        String value = regUsername.getEditText().getText().toString();
+        if (value.isEmpty()) {
+            regUsername.setError("Please Enter A Valid Username");
+            return false;
+        } else if (value.matches(".*\\s+.*")) {
+            regUsername.setError("Please Remove Spaces");
+            return false;
+        } else if (value.length() >= 15) {
+            regUsername.setError("Username Too Long");
+            return false;
+        }
+        else {
+            regUsername.setError(null);
+            regUsername.setErrorEnabled(false);
+            return true;
+        }
+    }
 
-                UserHelperClass helperClass = new UserHelperClass(username, phoneNo, email, password);
+    private Boolean validatePhoneNo() {
+        //Phone Number Checks
+        String value = regPhoneNo.getEditText().getText().toString();
+        if (value.isEmpty()) {
+            regPhoneNo.setError("Please Enter A Valid Phone Number");
+            return false;
+        }
+        else {
+            regPhoneNo.setError(null);
+            regPhoneNo.setErrorEnabled(false);
+            return true;
+        }
+    }
 
-                reference.child(phoneNo).setValue(helperClass);
+    private Boolean validateEmail() {
+        //Email Checks
+        String value = regEmail.getEditText().getText().toString();
+        if (value.isEmpty() || !value.matches("[a-zA-z0-9._-]+@[a-z]+\\.+[a-z]+")) {
+            regEmail.setError("Please Enter A Valid Email");
+            return false;
+        }
+        else {
+            regEmail.setError(null);
+            regEmail.setErrorEnabled(false);
+            return true;
+        }
+    }
 
-            }
-        });
+    private Boolean validatePassword() {
+        //Password Checks
+        String value = regPassword.getEditText().getText().toString();
+        String passConf = regPasswordConf.getEditText().getText().toString();
+        if (value.isEmpty()) {
+            regPassword.setError("Please Enter A Valid Password");
+            return false;
+        } else if (!value.matches("^(?=\\S+$).{6,}$")) {
+            regPassword.setError("Must Be At Least 6 Characters And Contain No Spaces");
+            return false;
+        } else if (passConf.isEmpty() || !passConf.equals(value)) {
+            regPasswordConf.setError("Passwords Do Not Match");
+            regPassword.setError(null);
+            regPassword.setErrorEnabled(false);
+            return false;
+        }
+        else {
+            regPassword.setError(null);
+            regPassword.setErrorEnabled(false);
+            regPasswordConf.setError(null);
+            regPasswordConf.setErrorEnabled(false);
+            return true;
+        }
+    }
+
+    public void registerUser(View view) {
+        if(!validateUsername() || !validatePhoneNo() || !validateEmail() || !validatePassword()) {
+            return;
+        }
+
+        //Get text field values
+        String username = regUsername.getEditText().getText().toString();
+        String phoneNo = regPhoneNo.getEditText().getText().toString();
+        String email = regEmail.getEditText().getText().toString();
+        String password = regPassword.getEditText().getText().toString();
+
+        UserHelperClass helperClass = new UserHelperClass(username, phoneNo, email, password);
+
+        reference.child(username).setValue(helperClass);
+
+        backToLogin(view);
     }
 }

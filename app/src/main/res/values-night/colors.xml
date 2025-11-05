@@ -9,7 +9,7 @@
     <color name="dark_green">#33471d</color>
     <color name="burgundy">#471d33</color>
 
-    <color name="primary_color">@color/burgundy</color>
+    <color name="primary_color">@color/dark_blue</color>
     <color name="primary_color_variant">@color/cream</color>
     <color name="primary_on_color">@color/coal</color>
 

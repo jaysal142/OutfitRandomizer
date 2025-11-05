@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="BottomNav_ActiveIndicator_Circle">
+        <item name="android:width">36dp</item>
+        <item name="android:height">36dp</item>
+
+        <item name="backgroundTint">@color/cream</item>
+
+        <item name="shapeAppearanceOverlay">@style/Shape_BottomNavIndicator_Circle</item>
+    </style>
+
+    <style name="Shape_BottomNavIndicator_Circle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+</resources>
