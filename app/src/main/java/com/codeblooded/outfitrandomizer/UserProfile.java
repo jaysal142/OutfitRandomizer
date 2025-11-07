@@ -22,10 +22,8 @@ import com.codeblooded.outfitrandomizer.data.local.UserEntity;
 import java.util.concurrent.Executors;
 
 public class UserProfile extends AppCompatActivity {
-
-    TextInputLayout username, phoneNo, email, password;
-    TextView usernameLabel;
     ImageView profileImage;
+    TextView usernameLabel, emailLabel;
     BottomNavigationView bottomNav;
 
     private UserDao userDao;
@@ -50,15 +48,9 @@ public class UserProfile extends AppCompatActivity {
         });
 
         //Hooks
-        username = findViewById(R.id.username_userProfile);
-        phoneNo = findViewById(R.id.phone_num_userProfile);
-        email = findViewById(R.id.email_userProfile);
-        password = findViewById(R.id.password_userProfile);
-        usernameLabel = findViewById(R.id.username_label_userProfile);
         profileImage = findViewById(R.id.profile_image_userProfile);
-        bottomNav = findViewById(R.id.bottom_nav_homePage);
-
-        bottomNav.setSelectedItemId(R.id.nav_user);
+        usernameLabel = findViewById(R.id.username_label_userProfile);
+        emailLabel = findViewById(R.id.email_label_userProfile);
 
         userDao = AppDatabase.getInstance(getApplicationContext()).userDao();
 
@@ -101,18 +93,7 @@ public class UserProfile extends AppCompatActivity {
     }
 
     private void bindToViews(String u, String p, String e, String pw) {
-        if (username.getEditText() != null) {
-            username.getEditText().setText(u != null ? u : "");
-        }
-        if (phoneNo.getEditText() != null) {
-            phoneNo.getEditText().setText(p != null ? p : "");
-        }
-        if (email.getEditText() != null) {
-            email.getEditText().setText(e != null ? e : "");
-        }
-        if (password.getEditText() != null) {
-            password.getEditText().setText(pw != null ? pw : "");
-        }
         usernameLabel.setText(u != null ? u : "");
+        emailLabel.setText(e != null ? e : "");
     }
 }

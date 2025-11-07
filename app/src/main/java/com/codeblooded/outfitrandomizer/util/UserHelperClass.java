@@ -1,4 +1,4 @@
-package com.codeblooded.outfitrandomizer;
+package com.codeblooded.outfitrandomizer.util;
 
 public class UserHelperClass {
     String username, phoneNo, email, password;
