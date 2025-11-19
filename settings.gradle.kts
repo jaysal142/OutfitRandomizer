@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "OutfitRandomizer"
 include(":app")
- 
+include(":openCVLibrary412")

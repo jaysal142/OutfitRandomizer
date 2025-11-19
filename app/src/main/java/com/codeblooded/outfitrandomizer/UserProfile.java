@@ -40,7 +40,7 @@ public class UserProfile extends AppCompatActivity {
             return insets;
         });
 
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_nav_homePage);
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_nav_userProfile);
         ViewCompat.setOnApplyWindowInsetsListener(bottomNav, (v, insets) -> {
             int bottom = (insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom) + 30;
             v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), bottom);
@@ -57,13 +57,12 @@ public class UserProfile extends AppCompatActivity {
         //Show All Data
         showAllUserData();
 
-        bottomNav = findViewById(R.id.bottom_nav_homePage);
         bottomNav.setSelectedItemId(R.id.nav_user);
 
         bottomNav.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
             if (id == R.id.nav_wardrobe) {
-                startActivity(new Intent(this, HomePage.class));
+                startActivity(new Intent(this, Wardrobe.class));
                 return true;
             } else if (id == R.id.nav_generator) {
                 startActivity(new Intent(this, HomePage.class));

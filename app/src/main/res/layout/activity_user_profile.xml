@@ -14,7 +14,7 @@
         android:layout_height="0dp"
         android:background="@color/secondary_color"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bottom_nav_homePage"
+        app:layout_constraintBottom_toTopOf="@id/bottom_nav_userProfile"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -210,7 +210,7 @@
     </ScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_nav_homePage"
+        android:id="@+id/bottom_nav_userProfile"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
@@ -232,6 +232,6 @@
         android:background="@drawable/bottom_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/bottom_nav_homePage" />
+        app:layout_constraintTop_toTopOf="@id/bottom_nav_userProfile" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
