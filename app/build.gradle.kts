@@ -55,8 +55,10 @@ dependencies {
     implementation(libs.camera.extensions)
     implementation(project(":openCVLibrary412"))
     implementation(libs.annotation)
+    implementation(libs.glide)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     annotationProcessor(libs.room.compiler)
+    annotationProcessor(libs.compiler)
 }

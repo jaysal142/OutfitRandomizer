@@ -18,6 +18,8 @@ cameraLifecycle = "1.5.1"
 cameraView = "1.5.1"
 cameraExtensions = "1.5.1"
 annotation = "1.9.1"
+glide = "4.16.0"
+compiler = "4.16.0"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -40,6 +42,8 @@ camera-lifecycle = { group = "androidx.camera", name = "camera-lifecycle", versi
 camera-view = { group = "androidx.camera", name = "camera-view", version.ref = "cameraView" }
 camera-extensions = { group = "androidx.camera", name = "camera-extensions", version.ref = "cameraExtensions" }
 annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation" }
+glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
+compiler = { group = "com.github.bumptech.glide", name = "compiler", version.ref = "compiler" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
