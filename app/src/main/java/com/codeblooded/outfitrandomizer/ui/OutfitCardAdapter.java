@@ -1,5 +1,8 @@
 package com.codeblooded.outfitrandomizer.ui;
 
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +14,11 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.codeblooded.outfitrandomizer.R;
 import com.codeblooded.outfitrandomizer.data.local.OutfitEntity;
+
+import java.io.IOException;
 
 public class OutfitCardAdapter extends ListAdapter<OutfitEntity, OutfitCardAdapter.VH> {
 
@@ -30,15 +36,21 @@ public class OutfitCardAdapter extends ListAdapter<OutfitEntity, OutfitCardAdapt
     private static final DiffUtil.ItemCallback<OutfitEntity> DIFF =
             new DiffUtil.ItemCallback<OutfitEntity>() {
                 @Override
-                public boolean areItemsTheSame(@NonNull OutfitEntity a, @NonNull OutfitEntity b) {
-                    return a.id == b.id;
+                public boolean areItemsTheSame(@NonNull OutfitEntity oldItem, @NonNull OutfitEntity newItem) {
+                    return oldItem.id == newItem.id;
+                }
+                private boolean safeEquals(String a, String b) {
+                    if (a == null && b == null) return true;
+                    if (a == null || b == null) return false;
+                    return a.equals(b);
                 }
                 @Override
-                public boolean areContentsTheSame(@NonNull OutfitEntity a, @NonNull OutfitEntity b) {
-                    return a.name.equals(b.name)
-                            && ((a.imageUri == null && b.imageUri == null)
-                            || (a.imageUri != null && a.imageUri.equals(b.imageUri)))
-                            && a.createdAt == b.createdAt;
+                public boolean areContentsTheSame(@NonNull OutfitEntity oldItem, @NonNull OutfitEntity newItem) {
+                    return oldItem.name.equals(newItem.name)
+                            && safeEquals(oldItem.jacketImageUri, newItem.jacketImageUri)
+                            && safeEquals(oldItem.shirtImageUri, newItem.shirtImageUri)
+                            && safeEquals(oldItem.pantsImageUri, newItem.pantsImageUri)
+                            && safeEquals(oldItem.shoesImageUri, newItem.shoesImageUri);
                 }
             };
 
@@ -49,25 +61,50 @@ public class OutfitCardAdapter extends ListAdapter<OutfitEntity, OutfitCardAdapt
         return new VH(v);
     }
 
+    private void bindImage(ImageView view, String uriString) {
+        if (uriString == null || uriString.isEmpty()) {
+            view.setImageDrawable(null);
+            view.setVisibility(View.GONE);
+            return;
+        }
+
+        view.setVisibility(View.VISIBLE);
+        Glide.with(view.getContext()).load(Uri.parse(uriString)).fitCenter().into(view);
+    }
+
     @Override
     public void onBindViewHolder(@NonNull VH holder, int position) {
         OutfitEntity item = getItem(position);
-        holder.title.setText(item.name);
+        if (item == null) return;
 
-        // If you load images, plug your loader here (Glide/Picasso). Placeholder only:
-        // Glide.with(holder.image.getContext()).load(item.imageUri).into(holder.image);
+        // Title
+        holder.title.setText(item.name != null ? item.name : "");
 
-        holder.itemView.setOnClickListener(v -> onItemClick.onClick(item));
+        // Load each clothing image
+        bindImage(holder.jacketImage, item.jacketImageUri);
+        bindImage(holder.shirtImage, item.shirtImageUri);
+        bindImage(holder.pantsImage, item.pantsImageUri);
+        bindImage(holder.shoesImage, item.shoesImageUri);
+
+        // Click callback for the whole card
+        holder.itemView.setOnClickListener(v -> {
+            if (onItemClick != null) {
+                onItemClick.onClick(item);
+            }
+        });
     }
 
     static class VH extends RecyclerView.ViewHolder {
         TextView title;
-        ImageView image;
+        ImageView jacketImage, shirtImage, pantsImage, shoesImage;
 
         VH(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.name_outfitCard);
-            image = itemView.findViewById(R.id.image_outfitCard);
+            jacketImage = itemView.findViewById(R.id.jacket_outfitCard);
+            shirtImage = itemView.findViewById(R.id.shirt_outfitCard);
+            pantsImage = itemView.findViewById(R.id.pants_outfitCard);
+            shoesImage = itemView.findViewById(R.id.shoes_outfitCard);
         }
     }
 }

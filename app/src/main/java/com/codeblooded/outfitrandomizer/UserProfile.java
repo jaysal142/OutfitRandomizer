@@ -65,7 +65,7 @@ public class UserProfile extends AppCompatActivity {
                 startActivity(new Intent(this, Wardrobe.class));
                 return true;
             } else if (id == R.id.nav_generator) {
-                startActivity(new Intent(this, HomePage.class));
+                startActivity(new Intent(this, Randomizer.class));
                 return true;
             } else if (id == R.id.nav_favorites) {
                 startActivity(new Intent(this, HomePage.class));

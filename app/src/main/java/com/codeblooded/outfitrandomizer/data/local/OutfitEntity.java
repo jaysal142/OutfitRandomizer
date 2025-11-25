@@ -9,12 +9,15 @@ public class OutfitEntity {
     public long id;
 
     public String name;
-    public String imageUri;
+    public String jacketImageUri, shirtImageUri, pantsImageUri, shoesImageUri;
     public long createdAt;
 
-    public OutfitEntity(String name, String imageUri, long createdAt) {
+    public OutfitEntity(String name, String jacketImageUri, String shirtImageUri, String pantsImageUri, String shoesImageUri, long createdAt) {
         this.name = name;
-        this.imageUri = imageUri;
+        this.jacketImageUri = jacketImageUri;
+        this.shirtImageUri = shirtImageUri;
+        this.pantsImageUri = pantsImageUri;
+        this.shoesImageUri = shoesImageUri;
         this.createdAt = createdAt;
     }
 }

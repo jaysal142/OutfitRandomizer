@@ -25,8 +25,8 @@ public class OutfitViewModel extends AndroidViewModel {
         return outfits;
     }
 
-    public void addOutfit(String name, String imageUri) {
-        repo.insert(new OutfitEntity(name, imageUri, System.currentTimeMillis()));
+    public void addOutfit(String name, String jacketUri, String shirtUri, String pantsUri, String shoesUri) {
+        repo.insert(new OutfitEntity(name, jacketUri, shirtUri, pantsUri, shoesUri, System.currentTimeMillis()));
     }
 
     public void delete(OutfitEntity e) {
