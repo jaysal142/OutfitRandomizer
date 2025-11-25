@@ -10,7 +10,8 @@
     <color name="dark_blue">#1d3347</color>
     <color name="dark_green">#33471d</color>
     <color name="burgundy">#471d33</color>
-
+    <color name="light_tint">#E6E6E6</color>
+    <color name="dark_tint">#383838</color>
 
     <color name="primary_color">@color/blue</color>
     <color name="primary_color_variant">@color/dark_blue</color>
@@ -19,4 +20,6 @@
     <color name="secondary_color">@color/white</color>
     <color name="secondary_color_variant">@color/cream</color>
     <color name="secondary_on_color">@color/coal</color>
+
+    <color name="background_color">@color/light_tint</color>
 </resources>

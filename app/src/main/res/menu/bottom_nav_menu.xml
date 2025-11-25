@@ -14,9 +14,9 @@
         android:icon="@drawable/generate_24dp"
         android:title="Generate"/>
     <item
-        android:id="@+id/nav_favorites"
-        android:icon="@drawable/favorite_24dp"
-        android:title="Favorites"/>
+        android:id="@+id/nav_outfits"
+        android:icon="@drawable/outfit_24dp"
+        android:title="Outfits" />
     <item
         android:id="@+id/nav_user"
         android:icon="@drawable/person_24dp"

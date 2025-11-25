@@ -6,7 +6,6 @@ import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,7 +25,6 @@ public class Wardrobe extends AppCompatActivity {
     BottomNavigationView bottomNav;
     Button addItem;
 
-    private RecyclerView wardrobeRecycler;
     private WardrobeAdapter wardrobeAdapter;
     private AppDatabase database;
     private WardrobeDAO wardrobeDAO;
@@ -41,7 +39,7 @@ public class Wardrobe extends AppCompatActivity {
 
         database = AppDatabase.getInstance(getApplicationContext());
         wardrobeDAO = database.wardrobeDAO();
-        wardrobeRecycler = findViewById(R.id.wardrobe_recycler_wardrobe);
+        RecyclerView wardrobeRecycler = findViewById(R.id.wardrobe_recycler_wardrobe);
         wardrobeRecycler.setLayoutManager(new LinearLayoutManager(this));
         wardrobeAdapter = new WardrobeAdapter(this);
         wardrobeRecycler.setAdapter(wardrobeAdapter);
@@ -68,17 +66,16 @@ public class Wardrobe extends AppCompatActivity {
         });
 
         bottomNav.setSelectedItemId(R.id.nav_wardrobe);
-
         bottomNav.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
             if (id == R.id.nav_home) {
                 startActivity(new Intent(this, HomePage.class));
                 return true;
             } else if (id == R.id.nav_generator) {
-                startActivity(new Intent(this, Randomizer.class));
+                startActivity(new Intent(this, Generator.class));
                 return true;
-            } else if (id == R.id.nav_favorites) {
-                startActivity(new Intent(this, HomePage.class));
+            } else if (id == R.id.nav_outfits) {
+                startActivity(new Intent(this, Outfits.class));
                 return true;
             } else if (id == R.id.nav_user) {
                 startActivity(new Intent(this, UserProfile.class));

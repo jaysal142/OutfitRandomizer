@@ -1,5 +1,8 @@
 package com.codeblooded.outfitrandomizer;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -8,13 +11,11 @@ import android.provider.MediaStore;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
@@ -28,7 +29,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.concurrent.Executors;
 
-public class Randomizer extends AppCompatActivity {
+public class Generator extends AppCompatActivity {
     private AppDatabase database;
     private WardrobeDAO wardrobeDAO;
     private OutfitDao outfitDao;
@@ -50,7 +51,7 @@ public class Randomizer extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_randomizer);
+        setContentView(R.layout.activity_generator);
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav_generator);
         ViewCompat.setOnApplyWindowInsetsListener(bottomNav, (v, insets) -> {
@@ -60,7 +61,6 @@ public class Randomizer extends AppCompatActivity {
         });
 
         bottomNav.setSelectedItemId(R.id.nav_generator);
-
         bottomNav.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
             if (id == R.id.nav_wardrobe) {
@@ -69,8 +69,8 @@ public class Randomizer extends AppCompatActivity {
             } else if (id == R.id.nav_user) {
                 startActivity(new Intent(this, UserProfile.class));
                 return true;
-            } else if (id == R.id.nav_favorites) {
-                startActivity(new Intent(this, HomePage.class));
+            } else if (id == R.id.nav_outfits) {
+                startActivity(new Intent(this, Outfits.class));
                 return true;
             } else if (id == R.id.nav_home) {
                 startActivity(new Intent(this, HomePage.class));
@@ -92,14 +92,14 @@ public class Randomizer extends AppCompatActivity {
         randomButton.setOnClickListener(v -> { generateRandomOutfit(); });
 
         saveOverlay = findViewById(R.id.save_overlay_generator);
-        saveOverlay.setVisibility(8);
+        saveOverlay.setVisibility(GONE);
         ImageButton saveOverlayButton = findViewById(R.id.saveOverlay_button_generator);
-        saveOverlayButton.setOnClickListener(v -> { saveOverlay.setVisibility(0); });
+        saveOverlayButton.setOnClickListener(v -> { saveOverlay.setVisibility(VISIBLE); });
         outfitNameInput = findViewById(R.id.outfit_name_generator);
         Button saveButton = findViewById(R.id.save_button_generator);
         saveButton.setOnClickListener(v -> { saveOutfit(); });
         Button cancelButton = findViewById(R.id.cancel_button_generator);
-        cancelButton.setOnClickListener(v -> { saveOverlay.setVisibility(8); });
+        cancelButton.setOnClickListener(v -> { saveOverlay.setVisibility(GONE); });
     }
 
     private void generateRandomOutfit() {
@@ -169,8 +169,7 @@ public class Randomizer extends AppCompatActivity {
             });
         });
 
-        saveOverlay.setVisibility(8);
-
+        saveOverlay.setVisibility(GONE);
     }
 
     private Bitmap loadBitmap(String uriString) {

@@ -6,73 +6,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary_on_color"
-    tools:context=".HomePage">
-
-    <RelativeLayout
-        android:id="@+id/header_view_homePage"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:orientation="horizontal"
-        android:layout_margin="20dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Hello, Welcome!"
-                android:textSize="14sp"
-                android:textColor="@color/secondary_on_color"
-                android:fontFamily="@font/poppins"
-                android:layout_weight="0.5"/>
-
-            <TextView
-                android:id="@+id/username_label_homePage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Username"
-                android:textSize="18sp"
-                android:textColor="@color/secondary_on_color"
-                android:fontFamily="@font/poppins_extrabold"
-                android:layout_weight="0.5"/>
-
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/profile_image_homePage"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_alignParentEnd="true"
-            android:src="@drawable/account_circle_24dp" />
-
-    </RelativeLayout>
+    tools:context=".Outfits">
 
     <TextView
-        android:id="@+id/title_homePage"
+        android:id="@+id/title_outfits"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:layout_marginHorizontal="20dp"
         android:fontFamily="@font/poppins_black_italic"
-        android:text="Favorites"
+        android:text="Outfits"
         android:textSize="30sp"
         android:textColor="@color/secondary_on_color"
-        app:layout_constraintTop_toBottomOf="@id/header_view_homePage"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
     <LinearLayout
-        android:id="@+id/query_view_homePage"
+        android:id="@+id/query_view_outfits"
         android:layout_width="match_parent"
         android:layout_height="63dp"
         android:layout_marginHorizontal="20dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/title_homePage"
+        app:layout_constraintTop_toBottomOf="@id/title_outfits"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -82,7 +37,7 @@
             android:orientation="horizontal">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/search_homePage"
+                android:id="@+id/search_outfits"
                 android:hint="Search"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -105,7 +60,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <ImageButton
-                android:id="@+id/filter_button_homePage"
+                android:id="@+id/filter_button_outfits"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginTop="3dp"
@@ -118,20 +73,20 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/favorites_recycler_homePage"
+        android:id="@+id/outfits_recycler_outfits"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="-40dp"
         android:clipToPadding="false"
-        app:layout_constraintTop_toBottomOf="@id/query_view_homePage"
-        app:layout_constraintBottom_toTopOf="@id/bottom_nav_homePage"
+        app:layout_constraintTop_toBottomOf="@id/query_view_outfits"
+        app:layout_constraintBottom_toTopOf="@id/bottom_nav_outfits"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_nav_homePage"
+        android:id="@+id/bottom_nav_outfits"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
@@ -150,9 +105,8 @@
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/bottom_background"
-        app:layout_constraintTop_toTopOf="@id/bottom_nav_homePage"
+        app:layout_constraintTop_toTopOf="@id/bottom_nav_outfits"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

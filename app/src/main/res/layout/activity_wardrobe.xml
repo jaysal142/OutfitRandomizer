@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/secondary_color"
+    android:background="@color/primary_on_color"
     tools:context=".Wardrobe">
 
     <LinearLayout
@@ -27,6 +27,7 @@
             android:layout_weight="1"
             android:text="All"
             android:textSize="11sp"
+            android:textColor="@color/secondary_on_color"
             style="@style/Widget.MaterialComponents.Button.TextButton"/>
 
         <com.google.android.material.button.MaterialButton
@@ -36,6 +37,7 @@
             android:layout_weight="1"
             android:text="Jackets"
             android:textSize="11sp"
+            android:textColor="@color/secondary_on_color"
             style="@style/Widget.MaterialComponents.Button.TextButton"/>
 
         <com.google.android.material.button.MaterialButton
@@ -45,6 +47,7 @@
             android:layout_weight="1"
             android:text="Shirts"
             android:textSize="11sp"
+            android:textColor="@color/secondary_on_color"
             style="@style/Widget.MaterialComponents.Button.TextButton"/>
 
         <com.google.android.material.button.MaterialButton
@@ -54,6 +57,7 @@
             android:layout_weight="1"
             android:text="Pants"
             android:textSize="11sp"
+            android:textColor="@color/secondary_on_color"
             style="@style/Widget.MaterialComponents.Button.TextButton"/>
 
         <com.google.android.material.button.MaterialButton
@@ -63,6 +67,7 @@
             android:layout_weight="1"
             android:text="Shoes"
             android:textSize="11sp"
+            android:textColor="@color/secondary_on_color"
             style="@style/Widget.MaterialComponents.Button.TextButton"/>
 
     </LinearLayout>

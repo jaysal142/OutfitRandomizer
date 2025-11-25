@@ -13,7 +13,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.textfield.TextInputLayout;
 
 import com.codeblooded.outfitrandomizer.data.local.AppDatabase;
 import com.codeblooded.outfitrandomizer.data.local.UserDao;
@@ -58,17 +57,16 @@ public class UserProfile extends AppCompatActivity {
         showAllUserData();
 
         bottomNav.setSelectedItemId(R.id.nav_user);
-
         bottomNav.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
             if (id == R.id.nav_wardrobe) {
                 startActivity(new Intent(this, Wardrobe.class));
                 return true;
             } else if (id == R.id.nav_generator) {
-                startActivity(new Intent(this, Randomizer.class));
+                startActivity(new Intent(this, Generator.class));
                 return true;
-            } else if (id == R.id.nav_favorites) {
-                startActivity(new Intent(this, HomePage.class));
+            } else if (id == R.id.nav_outfits) {
+                startActivity(new Intent(this, Outfits.class));
                 return true;
             } else if (id == R.id.nav_home) {
                 startActivity(new Intent(this, HomePage.class));

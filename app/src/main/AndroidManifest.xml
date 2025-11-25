@@ -14,7 +14,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OutfitRandomizer">
         <activity
-            android:name=".Randomizer"
+            android:name=".Outfits"
+            android:exported="false" />
+        <activity
+            android:name=".OutfitDetails"
+            android:exported="false" />
+        <activity
+            android:name=".Generator"
             android:exported="false" />
         <activity
             android:name=".AddItem"

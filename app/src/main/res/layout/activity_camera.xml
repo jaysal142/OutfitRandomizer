@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins"
             android:text="Place clothing item on a solid background in center of frame, then capture."
-            android:textColor="@color/primary_on_color"
+            android:textColor="@color/white"
             android:textSize="16sp"
             android:textAlignment="center"
             android:paddingBottom="8dp"/>

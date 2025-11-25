@@ -11,20 +11,17 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.codeblooded.outfitrandomizer.data.local.AppDatabase;
+import com.codeblooded.outfitrandomizer.data.local.OutfitDao;
 import com.codeblooded.outfitrandomizer.data.local.UserDao;
 import com.codeblooded.outfitrandomizer.data.local.UserEntity;
-import com.codeblooded.outfitrandomizer.ui.OutfitCard;
 import com.codeblooded.outfitrandomizer.ui.OutfitCardAdapter;
 import com.codeblooded.outfitrandomizer.ui.OutfitViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.Executors;
 
 public class HomePage extends AppCompatActivity {
@@ -52,19 +49,22 @@ public class HomePage extends AppCompatActivity {
 
         showAllUserData();
 
-        RecyclerView recycler = findViewById(R.id.outfits_recycler_homePage);
+        RecyclerView recycler = findViewById(R.id.favorites_recycler_homePage);
 
         recycler.setLayoutManager(new LinearLayoutManager(this));
         recycler.setHasFixedSize(true);
 
-        adapter = new OutfitCardAdapter(item -> {
-            //TODO: handle click: open details etc
+        adapter = new OutfitCardAdapter(outfit -> {
+            Intent intent = new Intent(this, OutfitDetails.class);
+            intent.putExtra("outfit", outfit);
+            startActivity(intent);
         });
         recycler.setAdapter(adapter);
 
-        OutfitViewModel vm = new ViewModelProvider(this).get(OutfitViewModel.class);
-
-        vm.getOutfits().observe(this, list -> adapter.submitList(list));
+        OutfitDao outfitDao = AppDatabase.getInstance(this).outfitDao();
+        outfitDao.getFavoriteOutfits().observe(this, outfits -> {
+            adapter.submitList(outfits);
+        });
 
         bottomNav = findViewById(R.id.bottom_nav_homePage);
         ViewCompat.setOnApplyWindowInsetsListener(bottomNav, (v, insets) -> {
@@ -74,17 +74,16 @@ public class HomePage extends AppCompatActivity {
         });
 
         bottomNav.setSelectedItemId(R.id.nav_home);
-
         bottomNav.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
             if (id == R.id.nav_wardrobe) {
                 startActivity(new Intent(this, Wardrobe.class));
                 return true;
             } else if (id == R.id.nav_generator) {
-                startActivity(new Intent(this, Randomizer.class));
+                startActivity(new Intent(this, Generator.class));
                 return true;
-            } else if (id == R.id.nav_favorites) {
-                startActivity(new Intent(this, HomePage.class));
+            } else if (id == R.id.nav_outfits) {
+                startActivity(new Intent(this, Outfits.class));
                 return true;
             } else if (id == R.id.nav_user) {
                 startActivity(new Intent(this, UserProfile.class));

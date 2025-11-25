@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -30,7 +32,6 @@ public class AddItem extends AppCompatActivity {
     private static final int REQUEST_CODE_CAMERA = 2001;
     private String capturedImageUriString = null;
 
-    private AppDatabase database;
     private WardrobeDAO wardrobeDAO;
 
     @Override
@@ -43,12 +44,13 @@ public class AddItem extends AppCompatActivity {
         itemName = findViewById(R.id.item_name_addItem);
         previewImage = findViewById(R.id.image_preview_addItem);
 
-        database = AppDatabase.getInstance(getApplicationContext());
+        AppDatabase database = AppDatabase.getInstance(getApplicationContext());
         wardrobeDAO = database.wardrobeDAO();
 
         setupCategorySpinner();
 
         findViewById(R.id.takePhoto_button_addItem).setOnClickListener(v -> openCamera());
+        findViewById(R.id.cancel_button_addItem).setOnClickListener(v -> finish());
         findViewById(R.id.save_button_addItem).setOnClickListener(v -> saveWardrobeItem());
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
