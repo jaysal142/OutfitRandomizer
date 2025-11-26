@@ -1,7 +1,9 @@
 package com.codeblooded.outfitrandomizer.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +15,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.codeblooded.outfitrandomizer.R;
+import com.codeblooded.outfitrandomizer.WardrobeDetails;
 import com.codeblooded.outfitrandomizer.data.local.WardrobeEntity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,6 +69,13 @@ public class WardrobeAdapter extends RecyclerView.Adapter<WardrobeAdapter.Wardro
         holder.category.setText(item.category);
 
         Glide.with(context).load(Uri.parse(item.imageUri)).centerCrop().into(holder.image);
+
+        holder.itemView.setOnClickListener(v -> {
+            Context context = v.getContext();
+            Intent intent = new Intent(context, WardrobeDetails.class);
+            intent.putExtra("wardrobe_item", item);
+            context.startActivity(intent);
+        });
     }
 
     @Override

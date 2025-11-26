@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_on_color"
+    tools:context=".WardrobeDetails">
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Item Image -->
+            <LinearLayout
+                android:id="@+id/item_layout_wardrobeDetails"
+                android:layout_width="0dp"
+                android:layout_height="500dp"
+                android:layout_margin="20dp"
+                android:background="@drawable/button_background"
+                android:backgroundTint="@color/background_color"
+                android:elevation="4dp"
+                android:orientation="vertical"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+                <ImageView
+                    android:id="@+id/item_image_wardrobeDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/hanger_24dp"
+                    android:scaleType="fitCenter"/>
+            </LinearLayout>
+            <!-- Item Details -->
+            <LinearLayout
+                android:id="@+id/details_layout_wardrobeDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/item_layout_wardrobeDetails"
+                app:layout_constraintStart_toStartOf="@id/item_layout_wardrobeDetails">
+                <TextView
+                    android:id="@+id/item_name_wardrobeDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:fontFamily="@font/poppins_black_italic"
+                    android:text="Item Name"
+                    android:textColor="@color/secondary_on_color"
+                    android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/item_category_wardrobeDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="4dp"
+                    android:fontFamily="@font/poppins_extralight"
+                    android:text="Item Category"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <!-- Edit Item -->
+            <Button
+                android:id="@+id/edit_button_wardrobeDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4dp"
+                android:text="Edit Item"
+                android:textColor="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/item_layout_wardrobeDetails"
+                app:layout_constraintBottom_toBottomOf="@id/details_layout_wardrobeDetails"
+                app:layout_constraintEnd_toEndOf="@id/item_layout_wardrobeDetails"/>
+            <!-- Delete Item -->
+            <Button
+                android:id="@+id/delete_button_wardrobeDetails"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#00000000"
+                android:text="Delete Item"
+                android:textColor="@color/secondary_on_color"
+                app:layout_constraintTop_toBottomOf="@id/details_layout_wardrobeDetails"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/item_layout_wardrobeDetails"
+                app:layout_constraintEnd_toEndOf="@id/item_layout_wardrobeDetails" />
+            <!-- Back -->
+            <ImageButton
+                android:id="@+id/back_button_wardrobeDetails"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/circle_24dp"
+                android:backgroundTint="@color/dark_blue"
+                android:elevation="4dp"
+                android:src="@drawable/back_24dp"
+                android:scaleType="center"
+                app:layout_constraintTop_toTopOf="@id/item_layout_wardrobeDetails"
+                app:layout_constraintStart_toStartOf="@id/item_layout_wardrobeDetails"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

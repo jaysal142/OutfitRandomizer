@@ -4,8 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 @Entity(tableName = "wardrobe_items")
-public class WardrobeEntity {
+public class WardrobeEntity implements Serializable {
     @PrimaryKey(autoGenerate = true)
     public int id;
 

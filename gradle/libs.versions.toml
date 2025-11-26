@@ -20,6 +20,7 @@ cameraExtensions = "1.5.1"
 annotation = "1.9.1"
 glide = "4.16.0"
 compiler = "4.16.0"
+ucrop = "2.2.11"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -44,6 +45,7 @@ camera-extensions = { group = "androidx.camera", name = "camera-extensions", ver
 annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation" }
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
 compiler = { group = "com.github.bumptech.glide", name = "compiler", version.ref = "compiler" }
+ucrop = { group = "com.github.yalantis", name = "ucrop", version.ref = "ucrop" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

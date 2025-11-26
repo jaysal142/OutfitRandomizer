@@ -56,6 +56,7 @@ dependencies {
     implementation(project(":openCVLibrary412"))
     implementation(libs.annotation)
     implementation(libs.glide)
+    implementation(libs.ucrop)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

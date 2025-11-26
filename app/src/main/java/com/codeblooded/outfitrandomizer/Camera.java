@@ -31,6 +31,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.google.common.util.concurrent.ListenableFuture;
+import com.yalantis.ucrop.UCrop;
 
 import org.opencv.android.Utils;
 import org.opencv.core.Core;
@@ -55,7 +56,6 @@ public class Camera extends AppCompatActivity {
     private static final int REQUEST_CODE_CAMERA = 1001;
 
     private PreviewView previewView;
-    private Button captureBtn;
     private FrameLayout loadingOverlay;
     private ImageCapture imageCapture;
 
@@ -66,7 +66,7 @@ public class Camera extends AppCompatActivity {
         setContentView(R.layout.activity_camera);
 
         previewView = findViewById(R.id.preview_view_camera);
-        captureBtn = findViewById(R.id.capture_button_camera);
+        Button captureBtn = findViewById(R.id.capture_button_camera);
         loadingOverlay = findViewById(R.id.loading_overlay_camera);
 
         if (allPermissionsGranted()) {
@@ -145,24 +145,9 @@ public class Camera extends AppCompatActivity {
                         Bitmap bitmap = imageProxyToBitmap(image);
                         image.close();
 
-                        Bitmap cutoutBitmap = removeBackground(bitmap);
-
-                        Uri imageUri = saveToInternalStorage(cutoutBitmap);
-
                         runOnUiThread(() -> {
                             showLoading(false);
-                            if (imageUri != null) {
-                                Intent data = new Intent();
-                                data.putExtra("image_uri", imageUri.toString());
-                                setResult(RESULT_OK, data);
-                                finish();
-                            } else {
-                                Toast.makeText(
-                                        Camera.this,
-                                        "Save failed after image process.",
-                                        Toast.LENGTH_SHORT
-                                ).show();
-                            }
+                            launchCrop(bitmap);
                         });
                     }
 
@@ -181,6 +166,27 @@ public class Camera extends AppCompatActivity {
                     }
                 }
         );
+    }
+
+    private void launchCrop(Bitmap bitmap) {
+        try {
+            File sourceFile = new File(getFilesDir(), "capture_" + System.currentTimeMillis() + ".jpg");
+            FileOutputStream outputStream = new FileOutputStream(sourceFile);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+            outputStream.flush();
+            outputStream.close();
+
+            String auth = getPackageName() + ".provider";
+            Uri sourceUri = FileProvider.getUriForFile(this, auth, sourceFile);
+
+            File destinationFile = new File(getFilesDir(), "cropped_" + System.currentTimeMillis() + ".jpg");
+            Uri destinationUri = Uri.fromFile(destinationFile);
+
+            UCrop.of(sourceUri, destinationUri).withMaxResultSize(1080, 1080).start(this);
+        } catch (IOException except) {
+            except.printStackTrace();
+            Toast.makeText(this, "Failed to start crop.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private Bitmap imageProxyToBitmap(ImageProxy image) {
@@ -327,6 +333,45 @@ public class Camera extends AppCompatActivity {
                 ).show();
                 finish();
             }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(resultCode, resultCode, data);
+
+        if (requestCode == UCrop.REQUEST_CROP) {
+            if (resultCode == RESULT_OK && data != null) {
+                Uri resultUri = UCrop.getOutput(data);
+                if (resultUri != null) {
+                    try {
+                        showLoading(true);
+
+                        Bitmap croppedBitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(resultUri));
+                        Bitmap cutoutBitmap = removeBackground(croppedBitmap);
+                        Uri imageUri = saveToInternalStorage(cutoutBitmap);
+
+                        showLoading(false);
+
+                        if (imageUri != null) {
+                            Intent out = new Intent();
+                            out.putExtra("image_uri", imageUri.toString());
+                            setResult(RESULT_OK, out);
+                            finish();
+                        } else {
+                            Toast.makeText(this, "Save failed after crop.", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (Exception except) {
+                        showLoading(false);
+                        except.printStackTrace();
+                        Toast.makeText(this, "Failed to process cropped image.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            } else if (resultCode == UCrop.RESULT_ERROR && data != null) {
+                Throwable error = UCrop.getError(data);
+                if (error != null) error.printStackTrace();
+                Toast.makeText(this, "Crop canceled or failed.", Toast.LENGTH_SHORT).show();
+            } else if (resultCode == RESULT_CANCELED) finish();
         }
     }
 }
