@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -23,7 +24,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight=".5"
+                android:layout_weight="0.5"
                 android:orientation="horizontal">
                 <ImageView
                     android:id="@+id/jacket_outfitCard"
@@ -34,7 +35,8 @@
                     android:scaleType="centerCrop"
                     android:background="@android:color/transparent"
                     android:src="@drawable/hanger_24dp"
-                    android:contentDescription="Jacket Image"/>
+                    android:contentDescription="@string/jacket_image_description_outfitCard"
+                    tools:ignore="NestedWeights" />
 
                 <ImageView
                     android:id="@+id/shirt_outfitCard"
@@ -45,7 +47,7 @@
                     android:scaleType="centerCrop"
                     android:background="@android:color/transparent"
                     android:src="@drawable/hanger_24dp"
-                    android:contentDescription="Shirt Image"/>
+                    android:contentDescription="@string/shirt_image_description_outfitCard"/>
             </LinearLayout>
 
             <LinearLayout
@@ -62,7 +64,8 @@
                     android:scaleType="centerCrop"
                     android:background="@android:color/transparent"
                     android:src="@drawable/hanger_24dp"
-                    android:contentDescription="Randomly Selected Jacket"/>
+                    android:contentDescription="@string/randomly_selected_jacket_description_outfitCard"
+                    tools:ignore="NestedWeights" />
 
                 <ImageView
                     android:id="@+id/shoes_outfitCard"
@@ -73,7 +76,7 @@
                     android:scaleType="centerCrop"
                     android:background="@android:color/transparent"
                     android:src="@drawable/hanger_24dp"
-                    android:contentDescription="Randomly Selected Jacket"/>
+                    android:contentDescription="@string/randomly_selected_shoes_description_outfitCard"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -85,7 +88,7 @@
             android:layout_gravity="bottom|start"
             android:layout_margin="10dp"
             android:paddingVertical="6dp"
-            android:text="Outfit Name"
+            android:text="@string/outfit_name_text_outfitCard"
             android:textColor="@color/secondary_on_color"
             android:fontFamily="@font/poppins_extrabold"/>
 

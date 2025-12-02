@@ -30,22 +30,16 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.concurrent.Executors;
 
 public class Generator extends AppCompatActivity {
-    private AppDatabase database;
     private WardrobeDAO wardrobeDAO;
     private OutfitDao outfitDao;
 
     private ConstraintLayout saveOverlay;
     private TextInputLayout outfitNameInput;
-    private ImageView jacketImage;
-    private ImageView shirtImage;
-    private ImageView pantsImage;
-    private ImageView shoesImage;
-    private Button randomButton;
+    private ImageView jacketImage, shirtImage, pantsImage, shoesImage;
 
-    private WardrobeEntity selectedJacket;
-    private WardrobeEntity selectedShirt;
-    private WardrobeEntity selectedPants;
-    private WardrobeEntity selectedShoes;
+    private WardrobeEntity selectedJacket, selectedShirt, selectedPants, selectedShoes;
+    private ImageButton lockJacket, lockShirt, lockPants, lockShoes;
+    private boolean bJacketLocked = false, bShirtLocked = false, bPantsLocked = false, bShoesLocked = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +73,7 @@ public class Generator extends AppCompatActivity {
             return false;
         });
 
-        database = AppDatabase.getInstance(getApplicationContext());
+        AppDatabase database = AppDatabase.getInstance(getApplicationContext());
         wardrobeDAO = database.wardrobeDAO();
         outfitDao = database.outfitDao();
 
@@ -88,26 +82,70 @@ public class Generator extends AppCompatActivity {
         pantsImage = findViewById(R.id.pants_image_generator);
         shoesImage = findViewById(R.id.shoes_image_generator);
 
-        randomButton = findViewById(R.id.randomize_button_generator);
-        randomButton.setOnClickListener(v -> { generateRandomOutfit(); });
+        lockJacket = findViewById(R.id.lockJacket_button_generator);
+        lockJacket.setOnClickListener(v -> {
+            bJacketLocked = !bJacketLocked;
+            updateLockIcons();
+        });
+        lockShirt = findViewById(R.id.lockShirt_button_generator);
+        lockShirt.setOnClickListener(v -> {
+            bShirtLocked = !bShirtLocked;
+            updateLockIcons();
+        });
+        lockPants = findViewById(R.id.lockPants_button_generator);
+        lockPants.setOnClickListener(v -> {
+            bPantsLocked = !bPantsLocked;
+            updateLockIcons();
+        });
+        lockShoes = findViewById(R.id.lockShoes_button_generator);
+        lockShoes.setOnClickListener(v -> {
+            bShoesLocked = !bShoesLocked;
+            updateLockIcons();
+        });
+
+        updateLockIcons();
+
+        Button randomButton = findViewById(R.id.randomize_button_generator);
+        randomButton.setOnClickListener(v -> generateRandomOutfit());
 
         saveOverlay = findViewById(R.id.save_overlay_generator);
         saveOverlay.setVisibility(GONE);
         ImageButton saveOverlayButton = findViewById(R.id.saveOverlay_button_generator);
-        saveOverlayButton.setOnClickListener(v -> { saveOverlay.setVisibility(VISIBLE); });
+        saveOverlayButton.setOnClickListener(v -> saveOverlay.setVisibility(VISIBLE));
         outfitNameInput = findViewById(R.id.outfit_name_generator);
         Button saveButton = findViewById(R.id.save_button_generator);
-        saveButton.setOnClickListener(v -> { saveOutfit(); });
+        saveButton.setOnClickListener(v -> saveOutfit());
         Button cancelButton = findViewById(R.id.cancel_button_generator);
-        cancelButton.setOnClickListener(v -> { saveOverlay.setVisibility(GONE); });
+        cancelButton.setOnClickListener(v -> saveOverlay.setVisibility(GONE));
+    }
+
+    private void updateLockIcons() {
+        setLockFill(lockJacket, bJacketLocked);
+        setLockFill(lockShirt, bShirtLocked);
+        setLockFill(lockPants, bPantsLocked);
+        setLockFill(lockShoes, bShoesLocked);
+    }
+
+    private void setLockFill(ImageButton button, boolean locked) {
+        if (button == null) return;
+        int drawable = locked ? R.drawable.lock_filled_24dp : R.drawable.lock_24dp;
+        button.setImageResource(drawable);
     }
 
     private void generateRandomOutfit() {
         Executors.newSingleThreadExecutor().execute(() -> {
-            selectedJacket = wardrobeDAO.getRandomByCategory("Jacket");
-            selectedShirt = wardrobeDAO.getRandomByCategory("Shirt");
-            selectedPants = wardrobeDAO.getRandomByCategory("Pants");
-            selectedShoes = wardrobeDAO.getRandomByCategory("Shoes");
+            if (!bJacketLocked || selectedJacket == null) {
+                selectedJacket = wardrobeDAO.getRandomByCategory("Jacket");
+            }
+            if (!bShirtLocked || selectedShirt == null) {
+                selectedShirt = wardrobeDAO.getRandomByCategory("Shirt");
+            }
+            if (!bPantsLocked || selectedPants == null) {
+                selectedPants = wardrobeDAO.getRandomByCategory("Pants");
+            }
+            if (!bShoesLocked || selectedShoes == null) {
+                selectedShoes = wardrobeDAO.getRandomByCategory("Shoes");
+            }
 
             runOnUiThread(() -> {
                 if (selectedJacket != null) {

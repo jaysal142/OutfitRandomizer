@@ -55,6 +55,7 @@ public class SignUp extends AppCompatActivity {
 
     private Boolean validateUsername() {
         //Username Checks
+        assert regUsername.getEditText() != null;
         String value = regUsername.getEditText().getText().toString();
         if (value.isEmpty()) {
             regUsername.setError("Please Enter A Valid Username");
@@ -75,6 +76,7 @@ public class SignUp extends AppCompatActivity {
 
     private Boolean validatePhoneNo() {
         //Phone Number Checks
+        assert regPhoneNo.getEditText() != null;
         String value = regPhoneNo.getEditText().getText().toString();
         if (value.isEmpty()) {
             regPhoneNo.setError("Please Enter A Valid Phone Number");
@@ -89,6 +91,7 @@ public class SignUp extends AppCompatActivity {
 
     private Boolean validateEmail() {
         //Email Checks
+        assert regEmail.getEditText() != null;
         String value = regEmail.getEditText().getText().toString();
         if (value.isEmpty() || !value.matches("[a-zA-z0-9._-]+@[a-z]+\\.+[a-z]+")) {
             regEmail.setError("Please Enter A Valid Email");
@@ -103,7 +106,9 @@ public class SignUp extends AppCompatActivity {
 
     private Boolean validatePassword() {
         //Password Checks
+        assert regPassword.getEditText() != null;
         String value = regPassword.getEditText().getText().toString();
+        assert regPasswordConf.getEditText() != null;
         String passConf = regPasswordConf.getEditText().getText().toString();
         if (value.isEmpty()) {
             regPassword.setError("Please Enter A Valid Password");
@@ -132,9 +137,13 @@ public class SignUp extends AppCompatActivity {
         }
 
         //Get text field values
+        assert regUsername.getEditText() != null;
         String username = regUsername.getEditText().getText().toString();
+        assert regPhoneNo.getEditText() != null;
         String phoneNo = regPhoneNo.getEditText().getText().toString();
+        assert regEmail.getEditText() != null;
         String email = regEmail.getEditText().getText().toString();
+        assert regPassword.getEditText() != null;
         String password = regPassword.getEditText().getText().toString();
 
         UserHelperClass helperClass = new UserHelperClass(username, phoneNo, email, password);

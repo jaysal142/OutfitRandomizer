@@ -17,8 +17,11 @@ public interface OutfitDao {
 
     @Query("SELECT * FROM outfits WHERE isFavorite = 1 ORDER BY createdAt DESC")
     LiveData<List<OutfitEntity>> getFavoriteOutfits();
-    @Query("UPDATE outfits SET isFavorite = :isFavorite WHERE id = :id")
-    void setFavorite(long id, boolean isFavorite);
+
+    @Query("SELECT COUNT(*) FROM outfits")
+    int countAll();
+    @Query("SELECT COUNT(*) FROM outfits WHERE isFavorite = 1")
+    int countFavorites();
 
     @Insert
     long insert(OutfitEntity outfit);

@@ -2,21 +2,23 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.OutfitRandomizer" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="colorPrimary">@color/dark_blue</item>
-        <item name="colorPrimaryVariant">@color/blue</item>
         <item name="colorOnPrimary">@color/white</item>
 
         <item name="colorSecondary">@color/cream</item>
-        <item name="colorSecondaryVariant">@color/light_blue</item>
         <item name="colorOnSecondary">@color/black</item>
 
+        <item name="backgroundColor">@color/primary_on_color</item>
+
         <item name="android:statusBarColor">@color/dark_blue</item>
-        <item name="android:textColorPrimary">@color/black</item>
+        <item name="android:navigationBarColor">@color/dark_blue</item>
+        <item name="android:textColorPrimary">@color/secondary_on_color</item>
 
+        <item name="materialButtonStyle">@style/Widget.Outfit.Button</item>
+        <item name="textInputStyle">@style/Widget.Outfit.TextInputLayout</item>
+
+        <item name="bottomNavigationStyle">@style/Widget.Outfit.BottomNavigationView</item>
         <item name="android:windowContentTransitions">true</item>
-
-        <item name="bottomNavigationStyle">@style/Widget.My.BottomNavigationView</item>
     </style>
 
     <style name="Theme.OutfitRandomizer" parent="Base.Theme.OutfitRandomizer" />
@@ -30,7 +32,27 @@
 
     <style name="Theme.OutfitRandomizer.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="Widget.My.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
+    <style name="Widget.Outfit.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
         <item name="itemActiveIndicatorStyle">@style/BottomNav_ActiveIndicator_Circle</item>
+    </style>
+
+    <style name="Shape.Outfit.Medium" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+
+    <style name="Widget.Outfit.Button" parent="Widget.Material3.Button">
+        <item name="shapeAppearance">@style/Shape.Outfit.Medium</item>
+        <item name="backgroundTint">@color/dark_blue</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/poppins_extrabold</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="Widget.Outfit.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="shapeAppearance">@style/Shape.Outfit.Medium</item>
+        <item name="boxBackgroundColor">@color/background_color</item>
+        <item name="android:textColorHint">@color/secondary_on_color</item>
+        <item name="android:fontFamily">@font/poppins</item>
     </style>
 </resources>

@@ -1,10 +1,13 @@
 package com.codeblooded.outfitrandomizer;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +15,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.codeblooded.outfitrandomizer.data.local.OutfitDao;
+import com.codeblooded.outfitrandomizer.data.local.WardrobeDAO;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import com.codeblooded.outfitrandomizer.data.local.AppDatabase;
@@ -23,9 +28,12 @@ import java.util.concurrent.Executors;
 public class UserProfile extends AppCompatActivity {
     ImageView profileImage;
     TextView usernameLabel, emailLabel;
-    BottomNavigationView bottomNav;
 
     private UserDao userDao;
+    private WardrobeDAO wardrobeDAO;
+    private OutfitDao outfitDao;
+
+    private TextView outfitsCount, favoritesCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +58,23 @@ public class UserProfile extends AppCompatActivity {
         profileImage = findViewById(R.id.profile_image_userProfile);
         usernameLabel = findViewById(R.id.username_label_userProfile);
         emailLabel = findViewById(R.id.email_label_userProfile);
+        outfitsCount = findViewById(R.id.outfits_count_userProfile);
+        favoritesCount = findViewById(R.id.favorites_count_userProfile);
 
-        userDao = AppDatabase.getInstance(getApplicationContext()).userDao();
+        Button resetButton = findViewById(R.id.clearStorage_button_userProfile);
+        Button logoutButton = findViewById(R.id.logout_button_userProfile);
+
+        AppDatabase database = AppDatabase.getInstance(getApplicationContext());
+        userDao = database.userDao();
+        wardrobeDAO = database.wardrobeDAO();
+        outfitDao = database.outfitDao();
 
         //Show All Data
         showAllUserData();
+        loadCounts();
+
+        resetButton.setOnClickListener(v -> confirmClearStorage());
+        logoutButton.setOnClickListener(v -> logout());
 
         bottomNav.setSelectedItemId(R.id.nav_user);
         bottomNav.setOnItemSelectedListener(item -> {
@@ -83,13 +103,49 @@ public class UserProfile extends AppCompatActivity {
             Executors.newSingleThreadExecutor().execute(() -> {
                 UserEntity user = userDao.getUser(current);
                 if (user != null) {
-                    runOnUiThread(() -> bindToViews(user.username, user.phoneNo, user.email, null));
+                    runOnUiThread(() -> bindToViews(user.username, user.email));
                 }
             });
         }
     }
 
-    private void bindToViews(String u, String p, String e, String pw) {
+    private void loadCounts() {
+        Executors.newSingleThreadExecutor().execute(() -> {
+            int outfitCount = outfitDao.countAll();
+            int favoriteCount = outfitDao.countFavorites();
+            runOnUiThread(() -> {
+                outfitsCount.setText(String.valueOf(outfitCount));
+                favoritesCount.setText(String.valueOf(favoriteCount));
+            });
+        });
+    }
+
+    private void confirmClearStorage() {
+        new AlertDialog.Builder(this).setTitle("Clear Wardrobe & Outfit Storage").setMessage("This will delete all saved wardrobe items and outfits. This cannot be undone.")
+                .setPositiveButton("Delete", ((dialog, which) -> clearData()))
+                .setNegativeButton("Cancel", null).show();
+    }
+
+    private void clearData() {
+        Executors.newSingleThreadExecutor().execute(() -> {
+            wardrobeDAO.clearAll();
+            outfitDao.clearAll();
+            runOnUiThread(() -> {
+                Toast.makeText(this, "All Wardrobe & Outfits Deleted.", Toast.LENGTH_SHORT).show();
+                loadCounts();
+            });
+        });
+    }
+
+    private void logout() {
+        getSharedPreferences("session", MODE_PRIVATE).edit().remove("current_username").apply();
+        Intent intent = new Intent(this, Login.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
+    }
+
+    private void bindToViews(String u, String e) {
         usernameLabel.setText(u != null ? u : "");
         emailLabel.setText(e != null ? e : "");
     }

@@ -1,8 +1,6 @@
 package com.codeblooded.outfitrandomizer.ui;
 
-import android.graphics.Bitmap;
 import android.net.Uri;
-import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +16,6 @@ import com.bumptech.glide.Glide;
 import com.codeblooded.outfitrandomizer.R;
 import com.codeblooded.outfitrandomizer.data.local.OutfitEntity;
 
-import java.io.IOException;
-
 public class OutfitCardAdapter extends ListAdapter<OutfitEntity, OutfitCardAdapter.VH> {
 
     public interface OnItemClick {
@@ -34,16 +30,18 @@ public class OutfitCardAdapter extends ListAdapter<OutfitEntity, OutfitCardAdapt
     }
 
     private static final DiffUtil.ItemCallback<OutfitEntity> DIFF =
-            new DiffUtil.ItemCallback<OutfitEntity>() {
+            new DiffUtil.ItemCallback<>() {
                 @Override
                 public boolean areItemsTheSame(@NonNull OutfitEntity oldItem, @NonNull OutfitEntity newItem) {
                     return oldItem.id == newItem.id;
                 }
+
                 private boolean safeEquals(String a, String b) {
                     if (a == null && b == null) return true;
                     if (a == null || b == null) return false;
                     return a.equals(b);
                 }
+
                 @Override
                 public boolean areContentsTheSame(@NonNull OutfitEntity oldItem, @NonNull OutfitEntity newItem) {
                     return oldItem.name.equals(newItem.name)
@@ -94,7 +92,7 @@ public class OutfitCardAdapter extends ListAdapter<OutfitEntity, OutfitCardAdapt
         });
     }
 
-    static class VH extends RecyclerView.ViewHolder {
+    public static class VH extends RecyclerView.ViewHolder {
         TextView title;
         ImageView jacketImage, shirtImage, pantsImage, shoesImage;
 

@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins"
-            android:text="Place clothing item on a solid background in center of frame, then capture."
+            android:text="@string/instructions_text_camera"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textAlignment="center"
@@ -57,7 +57,7 @@
             android:layout_height="110dp"
             android:layout_gravity="center"
             android:background="@drawable/circle_24dp"
-            android:height="14dp"/>
+            android:height="14dp" />
 
     </LinearLayout>
 

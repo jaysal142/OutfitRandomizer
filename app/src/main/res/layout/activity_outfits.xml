@@ -15,7 +15,7 @@
         android:layout_marginTop="40dp"
         android:layout_marginHorizontal="20dp"
         android:fontFamily="@font/poppins_black_italic"
-        android:text="Outfits"
+        android:text="@string/outfits_header_text_outfits"
         android:textSize="30sp"
         android:textColor="@color/secondary_on_color"
         app:layout_constraintTop_toTopOf="parent"
@@ -30,45 +30,25 @@
         app:layout_constraintTop_toBottomOf="@id/title_outfits"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
-
-        <LinearLayout
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/search_outfits"
+            android:hint="@string/search_hint_outfits"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            app:boxCornerRadiusTopStart="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:startIconDrawable="@drawable/search_24dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/search_outfits"
-                android:hint="Search"
-                android:layout_width="0dp"
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.75"
-                android:layout_marginEnd="15dp"
-                app:boxCornerRadiusTopStart="10dp"
-                app:boxCornerRadiusTopEnd="10dp"
-                app:boxCornerRadiusBottomStart="10dp"
-                app:boxCornerRadiusBottomEnd="10dp"
-                app:startIconDrawable="@drawable/search_24dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="44dp"
-                    android:paddingEnd="0dp"
-                    android:inputType="textFilter" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <ImageButton
-                android:id="@+id/filter_button_outfits"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginTop="3dp"
-                android:background="@drawable/button_background"
-                android:src="@drawable/menu_24dp"
-                app:tint="@color/white"/>
-
-        </LinearLayout>
+                android:paddingStart="44dp"
+                android:paddingEnd="0dp"
+                android:inputType="textFilter" />
+        </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 
@@ -84,6 +64,20 @@
         app:layout_constraintBottom_toTopOf="@id/bottom_nav_outfits"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/empty_message_outfits"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/empty_message_text_outfits"
+        android:textColor="@color/secondary_on_color"
+        android:fontFamily="@font/poppins"
+        android:textSize="14sp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="@id/outfits_recycler_outfits"
+        app:layout_constraintBottom_toBottomOf="@id/outfits_recycler_outfits"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav_outfits"

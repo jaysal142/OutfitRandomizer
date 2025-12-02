@@ -3,9 +3,6 @@ package com.codeblooded.outfitrandomizer.util;
 public class UserHelperClass {
     String username, phoneNo, email, password;
 
-    public UserHelperClass() {
-    }
-
     public UserHelperClass(String username, String phoneNo, String email, String password) {
         this.username = username;
         this.phoneNo = phoneNo;

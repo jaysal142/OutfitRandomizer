@@ -31,7 +31,7 @@
             android:layout_gravity="center"
             android:layout_weight="0.25"
             android:scaleType="fitCenter"
-            android:contentDescription="Randomly Selected Jacket"/>
+            android:contentDescription="@string/jacket_image_description_generator"/>
 
         <ImageView
             android:id="@+id/shirt_image_generator"
@@ -40,7 +40,7 @@
             android:layout_gravity="center"
             android:layout_weight="0.25"
             android:scaleType="fitCenter"
-            android:contentDescription="Randomly Selected Jacket"/>
+            android:contentDescription="@string/shirt_image_description_generator"/>
 
         <ImageView
             android:id="@+id/pants_image_generator"
@@ -49,7 +49,7 @@
             android:layout_gravity="center"
             android:layout_weight="0.25"
             android:scaleType="fitCenter"
-            android:contentDescription="Randomly Selected Jacket"/>
+            android:contentDescription="@string/pants_image_description_generator"/>
 
         <ImageView
             android:id="@+id/shoes_image_generator"
@@ -58,7 +58,7 @@
             android:layout_gravity="center"
             android:layout_weight="0.25"
             android:scaleType="fitCenter"
-            android:contentDescription="Randomly Selected Jacket"/>
+            android:contentDescription="@string/shoes_image_description_generator"/>
 
     </LinearLayout>
     <!--Lock item buttons-->
@@ -80,7 +80,7 @@
             android:layout_height="0dp"
             android:layout_weight="0.25"
             android:background="#00000000"
-            android:contentDescription="Lock Jacket Button"
+            android:contentDescription="@string/lock_jacket_button_description_generator"
             android:src="@drawable/lock_24dp"
             app:tint="@color/grey"/>
         <ImageButton
@@ -89,7 +89,7 @@
             android:layout_height="0dp"
             android:layout_weight="0.25"
             android:background="#00000000"
-            android:contentDescription="Lock Shirt Button"
+            android:contentDescription="@string/lock_shirt_button_description_generator"
             android:src="@drawable/lock_24dp"
             app:tint="@color/grey"/>
         <ImageButton
@@ -98,7 +98,7 @@
             android:layout_height="0dp"
             android:layout_weight="0.25"
             android:background="#00000000"
-            android:contentDescription="Lock Pants Button"
+            android:contentDescription="@string/lock_pants_button_description_generator"
             android:src="@drawable/lock_24dp"
             app:tint="@color/grey"/>
         <ImageButton
@@ -107,7 +107,7 @@
             android:layout_height="0dp"
             android:layout_weight="0.25"
             android:background="#00000000"
-            android:contentDescription="Lock Shoes Button"
+            android:contentDescription="@string/lock_shoes_button_description_generator"
             android:src="@drawable/lock_24dp"
             app:tint="@color/grey"/>
     </LinearLayout>
@@ -118,7 +118,7 @@
         android:layout_height="90dp"
         android:layout_gravity="center"
         android:background="@drawable/circle_24dp"
-        android:contentDescription="Generate Outfit Button"
+        android:contentDescription="@string/generate_outfit_button_description_generator"
         app:layout_constraintTop_toBottomOf="@id/outfit_layout_generator"
         app:layout_constraintBottom_toTopOf="@id/bottom_nav_generator"
         app:layout_constraintStart_toStartOf="parent"
@@ -129,6 +129,7 @@
         android:layout_height="70dp"
         android:src="@drawable/generate_24dp"
         app:tint="@color/white"
+        android:contentDescription="@string/generate_button_image_description_generator"
         app:layout_constraintTop_toTopOf="@id/randomize_button_generator"
         app:layout_constraintBottom_toBottomOf="@id/randomize_button_generator"
         app:layout_constraintStart_toStartOf="@id/randomize_button_generator"
@@ -139,27 +140,13 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/button_background"
-        android:contentDescription="Save Button"
+        android:contentDescription="@string/save_button_description_generator"
         android:src="@drawable/save_24dp"
         app:tint="@color/white"
         app:layout_constraintTop_toTopOf="@id/randomize_button_generator"
         app:layout_constraintBottom_toBottomOf="@id/randomize_button_generator"
         app:layout_constraintStart_toEndOf="@id/randomize_button_generator"
         app:layout_constraintEnd_toEndOf="parent"/>
-    <!--Layout button-->
-    <ImageButton
-        android:id="@+id/layout_button_generator"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="3dp"
-        android:background="@drawable/button_background"
-        android:contentDescription="Change Layout Button"
-        android:src="@drawable/grid_view_24dp"
-        app:tint="@color/white"
-        app:layout_constraintTop_toTopOf="@id/randomize_button_generator"
-        app:layout_constraintBottom_toBottomOf="@id/randomize_button_generator"
-        app:layout_constraintEnd_toStartOf="@id/randomize_button_generator"
-        app:layout_constraintStart_toStartOf="parent"/>
     <!--Save Overlay-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/save_overlay_generator"
@@ -185,7 +172,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:hint="Outfit Name"
+            android:hint="@string/outfit_name_hint_generator"
             app:layout_constraintTop_toTopOf="parent"
             app:counterMaxLength="15"
             style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox">
@@ -196,6 +183,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
+            style="?android:attr/buttonBarStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/outfit_name_generator"
@@ -204,20 +192,23 @@
 
             <Button
                 android:id="@+id/cancel_button_generator"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="10dp"
                 android:layout_weight=".5"
-                android:text="Cancel"/>
+                android:text="@string/cancel_button_text_generator" />
+
             <Button
                 android:id="@+id/save_button_generator"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="20dp"
                 android:layout_weight=".5"
-                android:text="Save"/>
+                android:text="@string/save_button_text_generator"/>
 
         </LinearLayout>
 

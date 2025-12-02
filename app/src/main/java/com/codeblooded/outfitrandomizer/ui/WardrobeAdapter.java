@@ -1,9 +1,9 @@
 package com.codeblooded.outfitrandomizer.ui;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +18,12 @@ import com.codeblooded.outfitrandomizer.R;
 import com.codeblooded.outfitrandomizer.WardrobeDetails;
 import com.codeblooded.outfitrandomizer.data.local.WardrobeEntity;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class WardrobeAdapter extends RecyclerView.Adapter<WardrobeAdapter.WardrobeViewHolder> {
-    private Context context;
+    private final Context context;
     private List<WardrobeEntity> wardrobeList;
 
     public WardrobeAdapter(Context context) {
@@ -44,13 +44,9 @@ public class WardrobeAdapter extends RecyclerView.Adapter<WardrobeAdapter.Wardro
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setItems(List<WardrobeEntity> items) {
-        if (items == null) {
-            this.wardrobeList = new ArrayList<>();
-        } else {
-            this.wardrobeList = items;
-        }
-
+        this.wardrobeList = Objects.requireNonNullElseGet(items, ArrayList::new);
         notifyDataSetChanged();
     }
 

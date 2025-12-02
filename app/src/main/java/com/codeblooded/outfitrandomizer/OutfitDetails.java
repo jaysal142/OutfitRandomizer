@@ -1,7 +1,6 @@
 package com.codeblooded.outfitrandomizer;
 
 import android.app.AlertDialog;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
@@ -29,8 +28,7 @@ public class OutfitDetails extends AppCompatActivity {
     private ImageView jacket, shirt, pants, shoes;
     private TextView outfitName, saveDate;
 
-    private ImageButton layoutBtn, favBtn;
-    private Button editBtn, deleteBtn;
+    private ImageButton favBtn;
 
     private OutfitEntity outfit;
     private OutfitDao outfitDao;
@@ -50,12 +48,11 @@ public class OutfitDetails extends AppCompatActivity {
         saveDate = findViewById(R.id.outfit_date_outfitDetails);
 
         findViewById(R.id.back_button_outfitDetails).setOnClickListener(v -> finish());
-        layoutBtn = findViewById(R.id.layout_button_outfitDetails);
         favBtn = findViewById(R.id.favorite_button_outfitDetails);
         favBtn.setOnClickListener(v -> toggleFavorite());
-        editBtn = findViewById(R.id.editName_button_outfitDetails);
+        Button editBtn = findViewById(R.id.editName_button_outfitDetails);
         editBtn.setOnClickListener(v -> showEdit());
-        deleteBtn = findViewById(R.id.delete_button_outfitDetails);
+        Button deleteBtn = findViewById(R.id.delete_button_outfitDetails);
         deleteBtn.setOnClickListener(v -> showDelete());
 
         outfitDao = AppDatabase.getInstance(this).outfitDao();
@@ -88,9 +85,7 @@ public class OutfitDetails extends AppCompatActivity {
         if (outfit == null) return;
         outfit.isFavorite = !outfit.isFavorite;
         updateFavoriteButton();
-        new Thread(() -> {
-            outfitDao.upsert(outfit);
-        }).start();
+        new Thread(() -> outfitDao.upsert(outfit)).start();
     }
 
     private void loadImage(ImageView image, String uriString) {
@@ -119,7 +114,8 @@ public class OutfitDetails extends AppCompatActivity {
         input.setSingleLine(true);
         input.setText(outfit.name != null ? outfit.name : "");
 
-        new AlertDialog.Builder(this).setTitle("Rename Outfit").setView(input).setPositiveButton("Save", (dialog, which) -> {
+        new AlertDialog.Builder(this).setTitle("Rename Outfit").setView(input)
+                .setPositiveButton("Save", (dialog, which) -> {
             String newName = input.getText().toString().trim();
             if (newName.isEmpty()) {
                 Toast.makeText(this, "Please enter a name.", Toast.LENGTH_SHORT).show();
@@ -139,15 +135,14 @@ public class OutfitDetails extends AppCompatActivity {
     }
 
     private void showDelete() {
-        new AlertDialog.Builder(this).setTitle("Delete Outfit").setMessage("Are you sure you want to DELETE this outfit?").setPositiveButton("Delete", (dialog, which) -> {
-            databaseExecutor.execute(() -> {
-                outfitDao.delete(outfit);
-                runOnUiThread(() -> {
-                    Toast.makeText(this, "Outfit Deleted", Toast.LENGTH_SHORT).show();
-                    finish();
-                });
+        new AlertDialog.Builder(this).setTitle("Delete Outfit").setMessage("Are you sure you want to DELETE this outfit?")
+                .setPositiveButton("Delete", (dialog, which) -> databaseExecutor.execute(() -> {
+            outfitDao.delete(outfit);
+            runOnUiThread(() -> {
+                Toast.makeText(this, "Outfit Deleted", Toast.LENGTH_SHORT).show();
+                finish();
             });
-        }).setNegativeButton("Cancel", null).show();
+        })).setNegativeButton("Cancel", null).show();
     }
 
     @Override

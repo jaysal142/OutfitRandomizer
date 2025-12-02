@@ -32,7 +32,4 @@ public class OutfitRepository {
     public void delete(OutfitEntity e) {
         io.submit(() -> dao.delete(e));
     }
-    public void clearAll() {
-        io.submit(dao::clearAll);
-    }
 }

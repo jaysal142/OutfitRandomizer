@@ -2,7 +2,9 @@ package com.codeblooded.outfitrandomizer;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,10 +28,9 @@ public class Wardrobe extends AppCompatActivity {
     Button addItem;
 
     private WardrobeAdapter wardrobeAdapter;
-    private AppDatabase database;
     private WardrobeDAO wardrobeDAO;
 
-    private MaterialButton filterAll, filterJackets, filterShirts, filterPants, filterShoes;
+    private TextView emptyMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,26 +38,28 @@ public class Wardrobe extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_wardrobe);
 
-        database = AppDatabase.getInstance(getApplicationContext());
+        AppDatabase database = AppDatabase.getInstance(getApplicationContext());
         wardrobeDAO = database.wardrobeDAO();
         RecyclerView wardrobeRecycler = findViewById(R.id.wardrobe_recycler_wardrobe);
+        emptyMessage = findViewById(R.id.empty_message_wardrobe);
+
         wardrobeRecycler.setLayoutManager(new LinearLayoutManager(this));
         wardrobeAdapter = new WardrobeAdapter(this);
         wardrobeRecycler.setAdapter(wardrobeAdapter);
 
-        filterAll = findViewById(R.id.filter_all_wardrobe);
-        filterJackets = findViewById(R.id.filter_jackets_wardrobe);
-        filterShirts = findViewById(R.id.filter_shirts_wardrobe);
-        filterPants = findViewById(R.id.filter_pants_wardrobe);
-        filterShoes = findViewById(R.id.filter_shoes_wardrobe);
+        MaterialButton filterAll = findViewById(R.id.filter_all_wardrobe);
+        MaterialButton filterJackets = findViewById(R.id.filter_jackets_wardrobe);
+        MaterialButton filterShirts = findViewById(R.id.filter_shirts_wardrobe);
+        MaterialButton filterPants = findViewById(R.id.filter_pants_wardrobe);
+        MaterialButton filterShoes = findViewById(R.id.filter_shoes_wardrobe);
 
         loadAllWardrobeItems();
 
-        filterAll.setOnClickListener(v -> {loadAllWardrobeItems();});
-        filterJackets.setOnClickListener(v -> {loadCategoryWardrobeItems("Jacket");});
-        filterShirts.setOnClickListener(v -> {loadCategoryWardrobeItems("Shirt");});
-        filterPants.setOnClickListener(v -> {loadCategoryWardrobeItems("Pants");});
-        filterShoes.setOnClickListener(v -> {loadCategoryWardrobeItems("Shoes");});
+        filterAll.setOnClickListener(v -> loadAllWardrobeItems());
+        filterJackets.setOnClickListener(v -> loadCategoryWardrobeItems("Jacket"));
+        filterShirts.setOnClickListener(v -> loadCategoryWardrobeItems("Shirt"));
+        filterPants.setOnClickListener(v -> loadCategoryWardrobeItems("Pants"));
+        filterShoes.setOnClickListener(v -> loadCategoryWardrobeItems("Shoes"));
 
         bottomNav = findViewById(R.id.bottom_nav_wardrobe);
         ViewCompat.setOnApplyWindowInsetsListener(bottomNav, (v, insets) -> {
@@ -105,6 +108,7 @@ public class Wardrobe extends AppCompatActivity {
                 if (wardrobeAdapter != null) {
                     wardrobeAdapter.setItems(items);
                 }
+                updateEmptyMessage(items);
             });
         });
     }
@@ -115,7 +119,16 @@ public class Wardrobe extends AppCompatActivity {
                 if (wardrobeAdapter != null) {
                     wardrobeAdapter.setItems(items);
                 }
+                updateEmptyMessage(items);
             });
         });
+    }
+
+    private void updateEmptyMessage(List <WardrobeEntity> items) {
+        if (items == null || items.isEmpty()) {
+            emptyMessage.setVisibility(View.VISIBLE);
+        } else {
+            emptyMessage.setVisibility(View.GONE);
+        }
     }
 }

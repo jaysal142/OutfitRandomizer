@@ -20,8 +20,6 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static int SPLASH_SCREEN = 5000;
-
     //Variables
     Animation topAnim, bottomAnim;
     ImageView image;
@@ -54,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         tagline2.setAnimation(bottomAnim);
 
 
+        int SPLASH_SCREEN = 5000;
         new Handler().postDelayed(() -> {
             Intent intent = new Intent(MainActivity.this,Login.class);
 
@@ -63,6 +62,6 @@ public class MainActivity extends AppCompatActivity {
 
             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this,pairs);
             startActivity(intent, options.toBundle());
-        },SPLASH_SCREEN);
+        }, SPLASH_SCREEN);
     }
 }

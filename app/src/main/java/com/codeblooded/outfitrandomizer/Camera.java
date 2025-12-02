@@ -112,6 +112,7 @@ public class Camera extends AppCompatActivity {
 
                 CameraSelector cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA;
 
+                assert cameraProvider != null;
                 cameraProvider.unbindAll();
                 cameraProvider.bindToLifecycle(
                         this,
@@ -289,23 +290,13 @@ public class Camera extends AppCompatActivity {
 
         File file = new File(getFilesDir(), fileName);
 
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(file);
+        try (FileOutputStream fos = new FileOutputStream(file)) {
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
             fos.flush();
         } catch (IOException e) {
             e.printStackTrace();
             Toast.makeText(this, "Failed to save image.", Toast.LENGTH_SHORT).show();
             return null;
-        } finally {
-            if (fos != null) {
-                try {
-                    fos.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
 
         String authority = getPackageName() + ".provider";
@@ -338,7 +329,7 @@ public class Camera extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(resultCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == UCrop.REQUEST_CROP) {
             if (resultCode == RESULT_OK && data != null) {

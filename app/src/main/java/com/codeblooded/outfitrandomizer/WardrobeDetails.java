@@ -22,13 +22,14 @@ import com.codeblooded.outfitrandomizer.data.local.AppDatabase;
 import com.codeblooded.outfitrandomizer.data.local.WardrobeDAO;
 import com.codeblooded.outfitrandomizer.data.local.WardrobeEntity;
 
+import java.io.File;
+import java.util.Objects;
+
 public class WardrobeDetails extends AppCompatActivity {
     private static final int REQ_CAMERA_EDIT_ITEM = 4001;
 
     private ImageView itemImage;
     private TextView itemName, itemCategory;
-    private Button editButton, deletebutton;
-    private ImageButton backButton;
 
     private WardrobeEntity item;
     private WardrobeDAO wardrobeDAO;
@@ -42,9 +43,9 @@ public class WardrobeDetails extends AppCompatActivity {
         itemImage = findViewById(R.id.item_image_wardrobeDetails);
         itemName = findViewById(R.id.item_name_wardrobeDetails);
         itemCategory = findViewById(R.id.item_category_wardrobeDetails);
-        editButton = findViewById(R.id.edit_button_wardrobeDetails);
-        deletebutton = findViewById(R.id.delete_button_wardrobeDetails);
-        backButton = findViewById(R.id.back_button_wardrobeDetails);
+        Button editButton = findViewById(R.id.edit_button_wardrobeDetails);
+        Button deletebutton = findViewById(R.id.delete_button_wardrobeDetails);
+        ImageButton backButton = findViewById(R.id.back_button_wardrobeDetails);
 
         wardrobeDAO = AppDatabase.getInstance(this).wardrobeDAO();
 
@@ -151,6 +152,7 @@ public class WardrobeDetails extends AppCompatActivity {
 
     private void deleteItem() {
         new Thread(() -> {
+            deleteImageFile(item.imageUri);
             wardrobeDAO.delete(item);
             runOnUiThread(() -> {
                 Toast.makeText(this, "Item Deleted.", Toast.LENGTH_SHORT).show();
@@ -160,9 +162,25 @@ public class WardrobeDetails extends AppCompatActivity {
     }
 
     private void saveItem() {
-        new Thread(() -> {
-            wardrobeDAO.update(item);
-        }).start();
+        new Thread(() -> wardrobeDAO.update(item)).start();
+    }
+
+    private void deleteImageFile(String uriString) {
+        if (uriString == null || uriString.isEmpty()) return;
+        try {
+            Uri uri = Uri.parse(uriString);
+            try {
+                getContentResolver().delete(uri, null, null);
+            } catch (Exception ignored) {}
+            try {
+                File file = new File(Objects.requireNonNull(uri.getPath()));
+                if (file.exists()) {
+                    file.delete();
+                }
+            } catch (Exception ignored) {}
+        } catch (Exception except) {
+            except.printStackTrace();
+        }
     }
 
     @Override

@@ -74,6 +74,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
+            android:visibility="invisible"
             android:id="@+id/btn_forgot_pass_login"
             android:background="#00000000"
             android:text="@string/btn_forgot_pass_login_text"

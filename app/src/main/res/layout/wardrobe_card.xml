@@ -17,6 +17,7 @@
 
         <ImageView
             android:id="@+id/image_wardrobeCard"
+            android:contentDescription="@string/wardrobe_item_image_description_wardrobeCard"
             android:layout_width="match_parent"
             android:layout_height="240dp"
             android:scaleType="centerCrop"
@@ -35,7 +36,7 @@
                 android:id="@+id/name_wardrobeCard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Item Name"
+                android:text="@string/item_name_text_wardrobeCard"
                 android:textColor="@color/secondary_on_color"
                 android:fontFamily="@font/poppins_extrabold"/>
 
@@ -43,7 +44,7 @@
                 android:id="@+id/category_wardrobeCard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Category"
+                android:text="@string/category_text_wardrobeCard"
                 android:textSize="12sp"
                 android:textColor="@color/secondary_on_color"
                 android:fontFamily="@font/poppins_extrabold"/>

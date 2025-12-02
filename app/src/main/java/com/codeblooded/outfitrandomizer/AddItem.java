@@ -1,18 +1,17 @@
 package com.codeblooded.outfitrandomizer;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.Nullable;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -24,15 +23,11 @@ import com.codeblooded.outfitrandomizer.data.local.WardrobeEntity;
 import com.google.android.material.textfield.TextInputLayout;
 
 public class AddItem extends AppCompatActivity {
-
     private Spinner categorySpinner;
     private TextInputLayout itemName;
-    private ImageView previewImage;
-
-    private static final int REQUEST_CODE_CAMERA = 2001;
     private String capturedImageUriString = null;
-
     private WardrobeDAO wardrobeDAO;
+    private ActivityResultLauncher<Intent> cameraLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +37,19 @@ public class AddItem extends AppCompatActivity {
 
         categorySpinner = findViewById(R.id.category_spinner_addItem);
         itemName = findViewById(R.id.item_name_addItem);
-        previewImage = findViewById(R.id.image_preview_addItem);
+        ImageView previewImage = findViewById(R.id.image_preview_addItem);
+
+        cameraLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                Intent data = result.getData();
+                capturedImageUriString = data.getStringExtra("image_uri");
+
+                if (capturedImageUriString != null) {
+                    Uri uri = Uri.parse(capturedImageUriString);
+                    previewImage.setImageURI(uri);
+                }
+            }
+        });
 
         AppDatabase database = AppDatabase.getInstance(getApplicationContext());
         wardrobeDAO = database.wardrobeDAO();
@@ -70,6 +77,7 @@ public class AddItem extends AppCompatActivity {
     }
 
     private void saveWardrobeItem() {
+        assert itemName.getEditText() != null;
         String name = itemName.getEditText().getText().toString().trim();
         String category = categorySpinner.getSelectedItem().toString();
 
@@ -95,20 +103,6 @@ public class AddItem extends AppCompatActivity {
 
     private void openCamera() {
         Intent intent = new Intent(this, Camera.class);
-        startActivityForResult(intent, REQUEST_CODE_CAMERA);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode == REQUEST_CODE_CAMERA && resultCode == RESULT_OK && data != null) {
-            capturedImageUriString = data.getStringExtra("image_uri");
-
-            if (capturedImageUriString != null) {
-                Uri uri = Uri.parse(capturedImageUriString);
-                previewImage.setImageURI(uri);
-            }
-        }
+        cameraLauncher.launch(intent);
     }
 }

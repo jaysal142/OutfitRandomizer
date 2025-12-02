@@ -9,6 +9,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -18,7 +19,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.Firebase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -52,6 +52,14 @@ public class Login extends AppCompatActivity {
             return insets;
         });
 
+        String current = getSharedPreferences("session", MODE_PRIVATE).getString("current_username", null);
+        if (current != null && !current.isEmpty()) {
+            Intent intent = new Intent(this, HomePage.class);
+            startActivity(intent);
+            finish();
+            return;
+        }
+
         userDao = AppDatabase.getInstance(getApplicationContext()).userDao();
 
         image = findViewById(R.id.brand_logo_login);
@@ -61,6 +69,7 @@ public class Login extends AppCompatActivity {
     }
 
     private Boolean validateUsername() {
+        assert username.getEditText() != null;
         String value = username.getEditText().getText().toString();
 
         if (value.isEmpty()) {
@@ -75,6 +84,7 @@ public class Login extends AppCompatActivity {
     }
 
     private Boolean validatePassword() {
+        assert password.getEditText() != null;
         String value = password.getEditText().getText().toString();
 
         if (value.isEmpty()) {
@@ -89,7 +99,9 @@ public class Login extends AppCompatActivity {
     }
 
     private void isUser() {
+        assert username.getEditText() != null;
         String reqUsername = username.getEditText().getText().toString().trim();
+        assert password.getEditText() != null;
         String reqPassword = password.getEditText().getText().toString().trim();
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
@@ -124,6 +136,7 @@ public class Login extends AppCompatActivity {
                 String phoneNoFromDB = node.child("phoneNo").getValue(String.class);
                 String emailFromDB = node.child("email").getValue(String.class);
 
+                assert usernameFromDB != null;
                 UserEntity localUser = new UserEntity(usernameFromDB, phoneNoFromDB, emailFromDB);
                 AppExecutors.io().execute(() -> userDao.upsert(localUser));
 
@@ -136,17 +149,14 @@ public class Login extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Toast.makeText(Login.this, "Login Failed: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     public void loginUser(View view) {
         //Validate login info
-        if (!validateUsername() || !validatePassword()) {
-            return;
-        }
-        else {
+        if (validateUsername() || validatePassword()) {
             isUser();
         }
     }
