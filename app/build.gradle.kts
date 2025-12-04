@@ -57,6 +57,7 @@ dependencies {
     implementation(libs.annotation)
     implementation(libs.glide)
     implementation(libs.ucrop)
+    implementation(libs.segmentation.selfie)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

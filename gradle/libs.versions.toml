@@ -21,6 +21,7 @@ annotation = "1.9.1"
 glide = "4.16.0"
 compiler = "4.16.0"
 ucrop = "2.2.11"
+segmentationSelfie = "16.0.0-beta3"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -46,6 +47,7 @@ annotation = { group = "androidx.annotation", name = "annotation", version.ref =
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
 compiler = { group = "com.github.bumptech.glide", name = "compiler", version.ref = "compiler" }
 ucrop = { group = "com.github.yalantis", name = "ucrop", version.ref = "ucrop" }
+segmentation-selfie = { group = "com.google.mlkit", name = "segmentation-selfie", version.ref = "segmentationSelfie" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
